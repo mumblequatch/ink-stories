@@ -227,8 +227,7 @@
             return;
         }
 
-        var headerOffset = parseInt(getComputedStyle(outerScrollContainer).marginTop) || 24;
-        var target = el.offsetTop - headerOffset - 10;
+        var target = el.offsetTop;
         var start = outerScrollContainer.scrollTop;
         var dist = Math.abs(target - start);
         var duration = 300 + 300*dist/100;

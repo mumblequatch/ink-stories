@@ -39,6 +39,7 @@
 
         var paragraphIndex = 0;
         var delay = 0.0;
+        var firstNewElement = null;
 
         var previousBottomEdge = firstTime ? 0 : contentBottomEdgeY();
 
@@ -125,6 +126,8 @@
             paragraphElement.innerHTML = paragraphText;
             storyContainer.appendChild(paragraphElement);
 
+            if (!firstNewElement) firstNewElement = paragraphElement;
+
             if (/^—\s.+\s—$/.test(paragraphText.trim()))
                 paragraphElement.classList.add('scene-title');
 
@@ -192,8 +195,8 @@
 
         storyContainer.style.height = "";
 
-        if( !firstTime )
-            scrollDown(previousBottomEdge);
+        if( !firstTime && firstNewElement )
+            scrollToElement(firstNewElement);
 
     }
 
@@ -220,6 +223,28 @@
         } else {
             el.classList.remove("hide");
         }
+    }
+
+    function scrollToElement(el) {
+        if ( !isAnimationEnabled() ) {
+            el.scrollIntoView({ block: 'start' });
+            return;
+        }
+
+        var target = el.offsetTop - 20;
+        var start = outerScrollContainer.scrollTop;
+        var dist = Math.abs(target - start);
+        var duration = 300 + 300*dist/100;
+        var startTime = null;
+        function step(time) {
+            if( startTime == null ) startTime = time;
+            var t = (time-startTime) / duration;
+            if( t > 1 ) t = 1;
+            var lerp = 3*t*t - 2*t*t*t;
+            outerScrollContainer.scrollTo(0, (1.0-lerp)*start + lerp*target);
+            if( t < 1 ) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
     }
 
     function scrollDown(previousBottomEdge) {

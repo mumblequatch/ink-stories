@@ -157,6 +157,11 @@ img {
     max-width: 100%;
 }
 
+.container.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+
 .container .hide {
     opacity: 0.0;
 }

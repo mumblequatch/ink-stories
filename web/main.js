@@ -180,15 +180,20 @@
 
                     event.preventDefault();
 
-                    removeAll("p");
-                    removeAll("img");
-                    setVisible(".header", false);
+                    storyContainer.classList.add('fade-out');
+                    setTimeout(function() {
+                        storyContainer.classList.remove('fade-out');
+                        removeAll("p");
+                        removeAll("img");
+                        setVisible(".header", false);
+                        outerScrollContainer.scrollTo(0, 0);
 
-                    story.ChooseChoiceIndex(choice.index);
+                        story.ChooseChoiceIndex(choice.index);
 
-                    savePoint = story.state.toJson();
+                        savePoint = story.state.toJson();
 
-                    continueStory(true);
+                        continueStory(true);
+                    }, 300);
                 });
             }
         });

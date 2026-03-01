@@ -182,6 +182,7 @@
 
                     removeAll("p");
                     removeAll("img");
+                    setVisible(".header", false);
 
                     story.ChooseChoiceIndex(choice.index);
 

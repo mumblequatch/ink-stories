@@ -222,25 +222,7 @@
     }
 
     function scrollToElement(el) {
-        if ( !isAnimationEnabled() ) {
-            el.scrollIntoView({ block: 'start' });
-            return;
-        }
-
-        var target = el.offsetTop;
-        var start = outerScrollContainer.scrollTop;
-        var dist = Math.abs(target - start);
-        var duration = 300 + 300*dist/100;
-        var startTime = null;
-        function step(time) {
-            if( startTime == null ) startTime = time;
-            var t = (time-startTime) / duration;
-            if( t > 1 ) t = 1;
-            var lerp = 3*t*t - 2*t*t*t;
-            outerScrollContainer.scrollTo(0, (1.0-lerp)*start + lerp*target);
-            if( t < 1 ) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
+        el.scrollIntoView({ behavior: isAnimationEnabled() ? 'smooth' : 'instant', block: 'start' });
     }
 
     function scrollDown(previousBottomEdge) {

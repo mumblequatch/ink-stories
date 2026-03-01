@@ -180,8 +180,6 @@
 
                     event.preventDefault();
 
-                    storyContainer.style.height = contentBottomEdgeY()+"px";
-
                     removeAll(".choice");
 
                     story.ChooseChoiceIndex(choice.index);
@@ -192,8 +190,6 @@
                 });
             }
         });
-
-        storyContainer.style.height = "";
 
         if( !firstTime && firstNewElement )
             scrollToElement(firstNewElement);
@@ -231,7 +227,8 @@
             return;
         }
 
-        var target = el.offsetTop - 20;
+        var headerOffset = parseInt(getComputedStyle(outerScrollContainer).marginTop) || 24;
+        var target = el.offsetTop - headerOffset - 10;
         var start = outerScrollContainer.scrollTop;
         var dist = Math.abs(target - start);
         var duration = 300 + 300*dist/100;

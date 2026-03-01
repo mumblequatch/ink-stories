@@ -115,13 +115,6 @@ p {
     line-height: 1.7;
     font-weight: 400;
     margin: 0 0 1em 0;
-    scroll-margin-top: 2rem;
-}
-
-@media screen and (max-width: 980px) {
-    p {
-        scroll-margin-top: 4rem;
-    }
 }
 
 a {

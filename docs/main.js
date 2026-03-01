@@ -180,19 +180,20 @@
 
                     event.preventDefault();
 
-                    removeAll(".choice");
+                    removeAll("p");
+                    removeAll("img");
 
                     story.ChooseChoiceIndex(choice.index);
 
                     savePoint = story.state.toJson();
 
-                    continueStory();
+                    continueStory(true);
                 });
             }
         });
 
-        if( !firstTime && firstNewElement )
-            scrollToElement(firstNewElement);
+        if( firstTime )
+            outerScrollContainer.scrollTo(0, 0);
 
     }
 
